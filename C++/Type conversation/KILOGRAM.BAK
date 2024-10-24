@@ -1,0 +1,37 @@
+// tupe conversation kg to gram
+#include<iostream>
+using namespace std;
+
+class weight
+{
+	public:
+		int kg,gm;
+	public:
+		weight()
+		{
+			kg=0;
+			gm=0;
+		}
+		weight(int a)
+		{
+			kg=a/1000;
+			gm=a%1000;
+		}
+		void display()
+		{
+			cout<<"Kilogram is a ="<<kg<<endl;
+			cout<<"Gram is a ="<<gm<<endl;
+		}
+
+};
+
+int main()
+{
+	int k;
+	cout<<"Enter a gram :";
+	cin>>k;
+	weight l;
+	l=k;
+	l.display();
+	return 0;
+}
