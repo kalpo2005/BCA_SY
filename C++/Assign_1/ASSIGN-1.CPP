@@ -4,6 +4,8 @@ class matrix
 {
 	public:
 	int i,j,r,c,a[20][20];
+// code by kkkk
+
 	void input()
 	{
 		for(i=0;i<3;i++)
