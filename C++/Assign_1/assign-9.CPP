@@ -12,6 +12,8 @@ class pattern
 	cin>>n;
   }
 
+//    this is a test text
+
   void display()
   {
 	for(i=0;i<n;i++)
