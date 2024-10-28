@@ -4,6 +4,8 @@ class prime
 {
 	public:
 	int j,n,i,c;
+
+	// test
 	void input()
 	{
 		cout<<"Enter Number=";
