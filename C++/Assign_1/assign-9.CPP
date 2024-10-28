@@ -36,6 +36,7 @@ class pattern
 
 };
 
+// this is for understanding
 void main()
 {
 	clrscr();
