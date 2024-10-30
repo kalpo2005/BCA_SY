@@ -33,7 +33,7 @@ class pattern
 	}
 
   }
-//   hhhhhhhhhkkk
+//   hhhhhhhhh   kkk
 };
 
 // this is for understanding
