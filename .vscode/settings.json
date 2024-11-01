@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "banking.C": "cpp"
+        "banking.C": "cpp",
+        "cstdlib": "cpp"
     }
 }
