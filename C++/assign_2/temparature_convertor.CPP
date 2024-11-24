@@ -47,7 +47,7 @@ class Temp
 		// Convert Celsius to Fahrenheit
 		void cTof()
 		{
-			tapman = (num * (9.0f / 5.0f)) + 32.0f;  // Use floating-point division
+			tapman = (num * (9.0f / 5.0f)) + 32;  // Use floating-point division
 		}
 };
 

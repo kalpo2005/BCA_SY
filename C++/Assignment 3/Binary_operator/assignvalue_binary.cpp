@@ -23,7 +23,8 @@ class Assign
 
 		operator =(Assign &k)
 		{
-			return a=k.a;
+			a=k.a;
+			return a;
 		}
 
 		void display()
