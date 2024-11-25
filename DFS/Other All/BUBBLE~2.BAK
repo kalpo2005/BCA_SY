@@ -1,0 +1,8 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+	int arr[100],n,temp,swap,
+	
+ getch();
+}

@@ -31,7 +31,7 @@ int main()
 
     gets(call);
     Person person1(call);
-    Person person2("Bob");
+    Person person2("this is a output :");
 
     Person person44(person1);
     person1.introduce();
