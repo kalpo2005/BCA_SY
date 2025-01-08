@@ -1,6 +1,6 @@
 // code by the kalpesh bavaliya 
 // tree all operation and the displayall three method are here
-if any changes and error please leave the comment here 
+// if any changes and error please leave the comment here 
 
 #include <stdio.h>
 #include <malloc.h>
