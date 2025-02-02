@@ -1,29 +1,29 @@
-#include<iostream>
-#include <conio.h>
+#include <iostream>
+#include<conio.h>
 using namespace std;
-class Parent
+
+class Parents
 {
-    public:
-    Parent()
-    {
-        cout << "Hello World !" << endl;
-    }
+	public:
+		Parents()
+		{
+			cout<<"Hello World !!"<<endl;
+		}
 };
 
-class Child : public Parent
+class Child : public Parents
 {
-public:
-    void input();
+	public:
+		void input();
 };
 
-int
-main()
+int main()
 {
-    Child p;
-    p.input();
-    return 0;
+	Child P;
+	P.input();
+	return 0;
 }
-void Child::input()
+void Child :: input()
 {
-    cout << "Hii !!! , Mr.Kalpesh Bavaliya !!" << endl;
+	cout<<"Hii !! MR.Kalpesh Bavaliya"<<endl;
 }

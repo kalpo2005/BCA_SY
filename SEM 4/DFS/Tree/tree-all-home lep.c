@@ -1,6 +1,6 @@
-// code by the kalpesh bavaliya 
+// code by the kalpesh bavaliya
 // tree all operation and the displayall three method are here
-// if any changes and error please leave the comment here 
+// if any changes and error please leave the comment here
 
 #include <stdio.h>
 #include <malloc.h>
@@ -13,9 +13,9 @@ struct tree
 };
 
 typedef struct tree kalpesh;
-kalpesh *root;
+kalpesh *root=NULL;
 
-kalpesh *inseart(kalpesh *,int );
+kalpesh *insert(kalpesh *,int );
 void Display(kalpesh *);
 void indisplay(kalpesh *);
 void infixdisplay(kalpesh *);
@@ -28,8 +28,8 @@ int main()
 	int value;
 	while(i)
 	{
-//		system("CLS");
-		printf("\n 01.inseart \n 02.display \n 03.exite");
+		system("CLS");
+		printf("\n 01.insert \n 02.display \n 03.exite");
 
 		printf("\n Enter the choice :");
 		scanf("%d", &choice);
@@ -39,7 +39,7 @@ int main()
 			case 1:
 				printf("\n Enter the value of root :");
 				scanf("%d", &value);
-				root = inseart(root,value);
+				root = insert(root,value);
 				break;
 			case 2:
 				Display(root);
@@ -57,7 +57,7 @@ int main()
 	return 0;
 }
 
-kalpesh *inseart(kalpesh *ptr,int value)
+kalpesh *insert(kalpesh *ptr,int value)
 {
 	if (ptr == NULL)
 	{
@@ -69,60 +69,40 @@ kalpesh *inseart(kalpesh *ptr,int value)
 
 	else if(value<ptr->value)
 	{
-		ptr->prev=inseart(ptr->prev,value);
+		ptr->prev=insert(ptr->prev,value);
 	}
 	else
 	{
-		ptr->next=inseart(ptr->next,value);
+		ptr->next=insert(ptr->next,value);
 	}
 }
 
 void infixdisplay(kalpesh *ptr)
 {
-	if(ptr==NULL)
-	{
-		printf("\n A tree is a empty !!!!");
-	}
-	else
-	{
-		if(ptr->prev!=NULL)
-			infixdisplay(ptr->prev);
-		printf("\n %d",ptr->value);
-		if(ptr->next)
-			infixdisplay(ptr->next);
-	}
+	if(ptr->prev!=NULL)
+		infixdisplay(ptr->prev);
+	printf("\n %d",ptr->value);
+	if(ptr->next)
+		infixdisplay(ptr->next);
 }
 
 void prefixdisplay(kalpesh *ptr)
 {
-	if(ptr==NULL)
-	{
-		printf("\n A tree is a empty !!!!");
-	}
-	else
-	{
-		printf("\n %d",ptr->value);
-		if(ptr->prev!=NULL)
-			prefixdisplay(ptr->prev);
-		if(ptr->next)
-			prefixdisplay(ptr->next);
-	}
+
+	printf("\n %d",ptr->value);
+	if(ptr->prev!=NULL)
+		prefixdisplay(ptr->prev);
+	if(ptr->next)
+		prefixdisplay(ptr->next);
 }
 
 void postfixdisplay(kalpesh *ptr)
 {
-	if(ptr==NULL)
-	{
-		printf("\n A tree is a empty !!!!");
-	}
-	else
-	{
-		if(ptr->prev!=NULL)
-			postfixdisplay(ptr->prev);
-		if(ptr->next)
-			postfixdisplay(ptr->next);
-		printf("\n %d",ptr->value);
-	}
+	if(ptr->prev!=NULL)
+		postfixdisplay(ptr->prev);
+	if(ptr->next)
+		postfixdisplay(ptr->next);
+	printf("\n %d",ptr->value);
 }
 
 void Display(kalpesh *ptr)
@@ -132,7 +112,6 @@ void Display(kalpesh *ptr)
 	{
 		printf("\n A tree is a empty !!!!");
 	}
-
 	else
 	{
 		printf("\n 01. Inorder \n 02. Postorder \n 03. Preorder ");

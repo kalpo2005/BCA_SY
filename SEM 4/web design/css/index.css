@@ -1,0 +1,110 @@
+*{
+margin:0px;
+padding:0px;
+}
+
+
+/*Utility classes*/
+
+.container-fluid
+{
+	max-width:100%;	
+	background-color:#e3e3e3;
+}
+.container
+{
+	margin:10px auto;
+	max-width:1200px;	
+}
+
+a
+{
+text-decoration:none;
+}
+
+.flex
+{
+	display:flex;
+}
+
+/*navigation css */
+
+.nav-conatiner
+{
+	justify-content:space-between;	
+	padding:15px 15px;
+}
+
+
+.logo a{
+	color:black;
+	display:inline-block;
+	font-weight:bold;
+}
+.logo
+{
+	font-weight:bold;
+}
+
+.logo a:hover
+{
+	outline:none;
+}
+
+.logo a:focus
+{
+	outline:none;
+}
+
+.logo span{
+color:red;
+}
+
+/*menubar css */
+
+.menu-ul
+{
+	list-style:none;
+	gap:10px;
+}
+
+.menu-ul a
+{
+	font-weight:600;
+	color:Black;
+}
+
+.menu-ul a:hover
+{
+	margin-bottom:-2px;
+	color:green;
+	border-bottom:2px solid green;
+}
+
+.menu-ul a:focus
+{
+	margin-bottom:-2px;
+	outline:none;s
+	color:green;
+	border-bottom:2px solid green;
+}
+
+.nav-links
+{
+	margin:0px 15px;
+}
+
+.nav-menu a{
+font-weight:600;
+color:black;
+border-butto:2px solid red;
+}
+
+.nav-menu a:hover{
+color:Red;
+border-bottom:2px solid red;
+}
+.nav-menu a:focus{
+color:Red;
+border-bottom:2px solid red;
+}
