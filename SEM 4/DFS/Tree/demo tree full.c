@@ -19,8 +19,9 @@ void prefixDisplay(kal *);
 void Display(kal *);
 void postfixDisplay(kal *);
 void searching(kal *,int );
-void update(kal *,int );
+void update(kal *,kal *,int );
 kal *deletion(kal *,int);
+void possible(int);
 
 int main()
 {
@@ -70,9 +71,9 @@ int main()
 				root=deletion(root,search);
 				break;
 			case 5:
-				printf("\n Enter a Update element :");
+			printf("\n Enter a searching element :");
 				scanf("%d",&search);
-				update(root,search);
+				update(root,NULL,search);
 				break;
 
 			case 7:
@@ -295,8 +296,10 @@ kal *deletion(kal *ptr,int search)
 	}
 }
 
-void update(kal *ptr,int search)
+void update(kal *ptr, kal *temp,int search)
 {
+int value;
+char name[100],div;
 	if(ptr==NULL)
 		printf("\n Tree is a empty , Do not perform a updating !!!!!");
 
@@ -305,30 +308,122 @@ void update(kal *ptr,int search)
 		if(ptr->value==search)
 		{
 			printf("\n Enter A update roll number of student :");
-			scanf("%d",&ptr->value);
+			scanf("%d",value);
 			fflush(stdin);
 			printf(" Enter A update Name of student        :");
-			gets(ptr->name);
+			gets(name);
 			fflush(stdin);
 			printf(" Enter A update division of class      :");
-			scanf("%c",&ptr->division);
+			scanf("%c",&div);
+
+			if(ptr->prev==ptr->next)
+			{
+				if(ptr==root)
+				{
+					ptr->value=value;
+					ptr->division=div;
+					strcpy(ptr->name,name);
+				}
+				else
+				{
+					if(value<temp->value)
+					{
+						
+					}
+					else
+					{
+						possible(0);
+					}
+				}
+			}
+			else if(ptr->prev==NULL)
+			{
+				if(ptr==root)
+				{
+					if(value<ptr->next)
+					{
+						ptr->value=value;
+						ptr->division=div;
+						strcpy(ptr->name,name);
+					}
+					else
+					possible(0);
+				}
+				else
+				{
+					if(value<ptr->next && temp->value>value)
+					{
+						ptr->value=value;
+						ptr->division=div;
+						strcpy(ptr->name,name);
+					}
+					else
+					possible(0);
+				}
+			}
+			
+			else if(ptr->next==NULL)
+			{
+				if(ptr==root)
+				{
+					if(value>ptr->prev)
+					{
+						ptr->value=value;
+						ptr->division=div;
+						strcpy(ptr->name,name);
+					}
+					else
+					possible(0);
+				}
+				else
+				{
+					if(value>ptr->prev && temp->value>value)
+					{
+						ptr->value=value;
+						ptr->division=div;
+						strcpy(ptr->name,name);
+					}
+					else
+					possible(0);
+				}
+			}
+			else
+			{
+				if(value>ptr->prev &&value<ptr->next && temp->value>value)
+					{
+						ptr->value=value;
+						ptr->division=div;
+						strcpy(ptr->name,name);
+					}
+					else
+					possible(0);
+				}
+			}
 		}
 		else
 		{
-			if(ptr->value>search && ptr->prev!=NULL)
+			if(ptr->value>search)
 			{
 				if(ptr->prev!=NULL)
-					searching(ptr->prev,search);
+					update(ptr->prev,ptr,search);
 				else
 					printf("\n Element not found !!!!");
 			}
 			else
 			{
 				if(ptr->next!=NULL)
-					searching(ptr->next,search);
+					update(ptr->next,ptr,search);
 				else
 					printf("\n Element not found !!!!");
 			}
 		}
 	}
+}
+
+void possible(int n)
+{
+	if(n)
+	printf("sucessfully update !!!");
+	else
+	printf("Not possible !!!");
 }
