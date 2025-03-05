@@ -2,11 +2,11 @@
 #include<conio.h>
 
 using namespace std;
-int fQnt;
 class media
 {
 	public:
-		char tital[100];
+		char title[100];
+		int fQnt;
 		int fPrice,cPrice;
 		char fType,cType;
 		int cQnt;
@@ -33,7 +33,7 @@ class Cd:virtual public media
 int main()
 {
 	Flopy F;
-	Cd  C;
+	Cd C;
 	C.input();
 	C.inputcd();
 	F.inputFloppy();
@@ -44,8 +44,8 @@ int main()
 
 void media::input()
 {
-	cout<<endl<<"Enter a tital :";
-	cin>>tital;
+	cout<<endl<<"Enter a title :";
+	cin>>title;
 
 	cout<<endl<<"Enter a cd disk price :";
 	cin>>cPrice;

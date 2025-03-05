@@ -2,15 +2,16 @@
 #include<conio.h>
 using namespace std;
 
+int Number;
+
 class Parents
 {
 	public:
-		int Number;
 
 		void input();
 };
 
-class child1:public Parents
+class child1:virtual public Parents
 {
 	public:
 
@@ -18,7 +19,7 @@ class child1:public Parents
 
 };
 
-class child2:public Parents
+class child2:virtual public Parents
 {
 	public:
 		void sqr();
@@ -50,8 +51,8 @@ void child1::nagative()
 
 void child2::sqr()
 {
-	
-	cout<<endl<<"pass valure is a :-----"<<Number;
+
+//	cout<<endl<<"pass valure is a :-----"<<Number;
 	(Number>0)?
 	cout<<endl<<"A number square is a : "<<Number*Number : cout<<"Number is a nagative Not possible !!!";
 }

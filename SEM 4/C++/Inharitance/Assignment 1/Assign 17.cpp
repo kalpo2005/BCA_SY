@@ -2,75 +2,46 @@
 #include<conio.h>
 using namespace std;
 
+int k;
+int productCode[100];
 class Product
 {
 	public:
 //		char productName[100][100];
-		int productCode[100];
-		int i,k,j,code;
+
+		int i,j,code;
 		Product()
 		{
 			k=0;
 		}
+};
+
+class Stock:virtual public Product
+{
+	public:
+		void display();
 
 };
 
-class Purchase:public Product
+class Purchase:virtual public Stock
 {
 	public:
-		void purchase()
-		{
-			for(i=k; i<100; i++)
-			{
-				cout<<endl<<"Enter a product code :";
-				cin>>productCode[i];
-				k++;
-				break;
-			}
-		}
-
+		void purchase();
 };
 
-class Sell:public Stock
+class Sell: virtual public Stock
 {
 	public:
-		void sell()
-		cout<<endl<<"Availble product code :";
-		for(i=0; i<k; i++)
-		{
-			if(productCode[i]==code)
-			{
-				for(j=i; j<k; j++)
-				{
-					productCode[j]=j+1;
-				}
-				k--;
-			}
-		}
-}
-
-};
-
-class Stock:public Purchase
-{
-	public:
-		void display()
-		{
-			cout<<endl<<"Availble product code :";
-			for(i=0; i<k; i++)
-			{
-				cout<<endl<<productCode[i];
-			}
-
-		}
+		void sell();
 
 };
 
 int main()
 {
 	int choice,i=1;
-	Purchase p;
-	Stock S;
+	Sell S;
+	Purchase P;
+
 
 	while(i)
 	{
@@ -80,17 +51,19 @@ int main()
 		switch(choice)
 		{
 			case 1:
-				S.purchase();
+				P.purchase();
 				break;
 
 			case 2:
+				S.sell();
 				break;
 
 			case 3:
-				S.display();
+				P.display();
 				break;
 
 			case 4:
+				i=0;
 				break;
 
 			default:
@@ -99,4 +72,40 @@ int main()
 		}
 	}
 	return 0;
+}
+
+void Stock :: display()
+{
+	cout<<endl<<"Availble product code :";
+	for(i=0; i<k; i++)
+	{
+		cout<<endl<<productCode[i];
+	}
+}
+
+void Sell :: sell()
+{
+	cout<<endl<<"Availble product code for selling :";
+	cin>>code;
+	for(i=0; i<k; i++)
+	{
+//				cout<<endl<<"Availble product code for selling :";
+		if(productCode[i]==code)
+		{
+			for(j=i; j<k; j++)
+			{
+				if(productCode[j]==code)
+					productCode[j]=productCode[j+1];
+				break;
+			}
+				delete &productCode[k];
+				k--;
+		}
+	}
+}
+
+void Purchase :: purchase()
+{
+	cout<<endl<<"Enter a product code :";
+	cin>>productCode[k++];
 }

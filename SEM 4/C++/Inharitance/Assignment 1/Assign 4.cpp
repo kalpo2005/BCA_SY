@@ -6,7 +6,7 @@ class Parents
 {
 	public:
 		int Number1,Number2;
-	
+
 		void input();
 };
 
@@ -53,9 +53,9 @@ int main()
 
 void Parents:: input()
 {
-	cout<<"Enter a Number 1 :";
+	cout<<"Enter a Number 1 for the Multiplication :";
 	cin>>Number1;
-	cout<<"Enter a Number 2 :";
+	cout<<"Enter a Number 2 for the Multiplication :";
 	cin>>Number2;
 }
 void mother::multi()

@@ -1,0 +1,5 @@
+q.1 wap to eneter a one string and find the laenght witout the function
+
+q.2 wap to enter string find the chartctr of this 
+
+q.3  wap to enter a number and check the armstrong

@@ -26,7 +26,7 @@ int main()
 	return 0;
 }
 
-void Parents :: input()
+ void Parents :: input()
 {
 	cout<<endl<<"Enter a Number for the square :";
 	cin>>Num;

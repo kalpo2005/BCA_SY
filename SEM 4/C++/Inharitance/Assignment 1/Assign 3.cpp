@@ -5,26 +5,26 @@ using namespace std;
 class Parents
 {
 	public:
-		
+
 		int Number1;
-		
+
 		void input();
 };
 
 class Parents2
 {
 	public:
-		
+
 		int Number2;
-		
+
 		void input2();
 };
 
 class child:public Parents,public Parents2
 {
 	public:
-	
-	void display();
+
+		void display();
 };
 
 int main()
@@ -38,13 +38,13 @@ int main()
 
 void Parents::input()
 {
-	cout<<"Enter a value of the Number 1 :";
+	cout<<"Enter a value for the division :";
 	cin>>Number1;
 }
 
 void Parents2::input2()
 {
-	cout<<"Enter a value of the Number 2 :";
+	cout<<"Enter a value of divider :";
 	cin>>Number2;
 }
 

@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+
 struct student
 {
 	struct student *prev;
@@ -11,7 +12,10 @@ typedef struct student kalpesh;
 kalpesh *root=NULL;
 
 kalpesh *inseart(kalpesh *);
-void infixdisplay(kalpesh *);
+void infixDisplay(kalpesh *);
+void prefixDisplay(kalpesh *);
+void Display(kalpesh *);
+void postfixDisplay(kalpesh *);
 
 int main()
 {
@@ -20,7 +24,7 @@ int main()
 	{
 		printf("\n \n A tree all operation :");
 
-		printf("\n 01.inseart \n 02.infixdisplay \n 03.prefixdisplay \n 04.postfixdisplay \n 05.exite");
+		printf("\n 01.inseart \n 02.Display \n 03.Exite");
 
 		printf("\n Enter a right choice :");
 		scanf("%d",&choice);
@@ -33,16 +37,10 @@ int main()
 
 			case 2:
 				printf("\n A Node value is a :");
-				infixdisplay(root);
+				Display(root);
 				break;
 
 			case 3:
-				break;
-
-			case 4:
-				break;
-
-			case 5:
 				printf("\n \n Program exite !!!!");
 				i=0;
 				break;
@@ -96,17 +94,88 @@ kalpesh *inseart(kalpesh *ptr)
 	return ptr;
 }
 
-void infixdisplay(kalpesh *ptr)
+kalpesh *create(kalpesh *ptr)
 {
-	if(ptr==NULL)
-		printf("\n A tree is a empty !!!");
+//	int value;
+//
+//	printf("\n Enter a value of the new node :");
+//	scanf("%d",&value);
+//
+	if(value==ptr->number)
+	{
+		printf("\n Not Possible because value is a reapeat :");
+	}
 
 	else
 	{
-		if(ptr->prev!=NULL)
-			infixdisplay(ptr->prev);
-		printf("\n %d",ptr->number);
-		if(ptr!=NULL)
-			infixdisplay(ptr->next);
+		if(value<ptr->number)
+			create(ptr->prev);
+		else
+			create(ptr->next);
 	}
+}
+
+void Display(kalpesh *ptr)
+{
+	int choice;
+
+	if(ptr==NULL)
+	{
+		printf("\n Tree is Empty");
+	}
+
+	else
+	{
+		printf("\n 01. Prefix \n 02. infix \n 03.postfix");
+
+		printf("\n Enter a choice :");
+		scanf("%d",&choice);
+		printf("\n A Tree value is a : \n \n");
+
+		switch(choice)
+		{
+			case 1:
+				prefixDisplay(ptr);
+				break;
+
+			case 2:
+				infixDisplay(ptr);
+				break;
+
+			case 3:
+				postfixDisplay(ptr);
+				break;
+
+			default:
+				printf("\n Invalid Choice !!!");
+				break;
+		}
+	}
+
+}
+
+void infixDisplay(kalpesh *ptr)
+{
+	if(ptr->prev!=NULL)
+		infixDisplay(ptr->prev);
+	printf("%d,",ptr->number);
+	if(ptr->next!=NULL)
+		infixDisplay(ptr->next);
+}
+void prefixDisplay(kalpesh *ptr)
+{
+	printf("%d,",ptr->number);
+	if(ptr->prev!=NULL)
+		prefixDisplay(ptr->prev);
+	if(ptr->next!=NULL)
+		prefixDisplay(ptr->next);
+}
+
+void postfixDisplay(kalpesh *ptr)
+{
+	if(ptr->prev!=NULL)
+		postfixDisplay(ptr->prev);
+	if(ptr->next!=NULL)
+		postfixDisplay(ptr->next);
+	printf("%d,",ptr->number);
 }

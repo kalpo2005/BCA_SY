@@ -32,7 +32,7 @@ int main()
 
 void Student :: input()
 {
-	cout<<endl<<"Eneter a subject number :";
+	cout<<endl<<"Enter a subject number :";
 	cin>>n;
 
 	for(i=0; i<n; i++)

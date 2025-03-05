@@ -1,33 +1,40 @@
 #include<stdio.h>
-#include<conio.h>
 #include<stdlib.h>
+#include<string.h>
 
 struct tree
 {
 	struct tree *prev;
 	int value;
+	char name[100];
+	char division;
 	struct tree *next;
 };
 typedef struct tree kal;
 kal *root=NULL;
 
-kal *Inseart(kal *,int);
+kal *Inseart(kal *,int,char [],char);
 void infixDisplay(kal *);
 void prefixDisplay(kal *);
 void Display(kal *);
 void postfixDisplay(kal *);
+void searching(kal *,int );
+void update(kal *,int );
+kal *deletion(kal *,int);
 
 int main()
 {
 	int i=1,choice,rootCheck=1;
-	int value;
+	int value,search;
+	char division;
+	char sname[100];
 
 	while(i)
 	{
 //		system("cls");
 		printf("\n \n linklist operation :");
 
-		printf("\n 01. Inseart \n 02. Display \n 03. Exite");
+		printf("\n 01. Inseart \n 02. Display \n 03. Searching \n 04. Deletion \n 05. Update \n 07. Exite");
 
 		printf("\n Enter a choice :");
 		scanf("%d",&choice);
@@ -35,19 +42,40 @@ int main()
 		switch(choice)
 		{
 			case 1:
-				printf("\n Enter the value of root :");
+				printf("\n Enter A roll number of student :");
 				scanf("%d",&value);
+				fflush(stdin);
+				printf(" Enter A Name of student        :");
+				gets(sname);
+				fflush(stdin);
+				printf(" Enter A division of class      :");
+				scanf("%c",&division);
 
-				root=Inseart(root,value);
-				rootCheck=0;
+				root=Inseart(root,value,sname,division);
 				break;
 
 			case 2:
 				Display(root);
-//				getch();
 				break;
 
 			case 3:
+				printf("\n Enter a searching element :");
+				scanf("%d",&search);
+				searching(root,search);
+				break;
+
+			case 4:
+				printf("\n Enter a Delete element :");
+				scanf("%d",&search);
+				root=deletion(root,search);
+				break;
+			case 5:
+				printf("\n Enter a Update element :");
+				scanf("%d",&search);
+				update(root,search);
+				break;
+
+			case 7:
 				i=0;
 				break;
 
@@ -56,15 +84,19 @@ int main()
 				break;
 		}
 	}
+	fflush(stdin);
 	return 0;
 }
 
-kal *Inseart(kal *ptr, int value)
+kal *Inseart(kal *ptr, int value,char name[],char division)
 {
 	if(ptr==NULL)
 	{
 		ptr=(kal *)malloc(sizeof(kal));
 		ptr->value=value;
+		ptr->division=division;
+		fflush(stdin);
+		strcpy(ptr->name,name);
 		ptr->next=ptr->prev=NULL;
 	}
 	else
@@ -75,11 +107,11 @@ kal *Inseart(kal *ptr, int value)
 		}
 		else if(value<ptr->value)
 		{
-			ptr->prev=Inseart(ptr->prev,value);
+			ptr->prev=Inseart(ptr->prev,value,name,division);
 		}
 		else
 		{
-			ptr->next=Inseart(ptr->next,value);
+			ptr->next=Inseart(ptr->next,value,name,division);
 		}
 
 	}
@@ -102,6 +134,7 @@ void Display(kal *ptr)
 
 		printf("\n Enter a choice :");
 		scanf("%d",&choice);
+
 		printf("\n A Tree value is a : \n \n");
 
 		switch(choice)
@@ -130,13 +163,19 @@ void infixDisplay(kal *ptr)
 {
 	if(ptr->prev!=NULL)
 		infixDisplay(ptr->prev);
-	printf("%d,",ptr->value);
+	printf("\n \n Student Roll Number is a : %d,",ptr->value);
+	printf("\n Student name is a        :");
+	puts(ptr->name);
+	printf("Student class is a        : %c,",ptr->division);
 	if(ptr->next!=NULL)
 		infixDisplay(ptr->next);
 }
 void prefixDisplay(kal *ptr)
 {
-	printf("%d,",ptr->value);
+	printf("\n \n Student Roll Number is a : %d,",ptr->value);
+	printf("\n Student name is a        :");
+	puts(ptr->name);
+	printf("Student class is a        : %c,",ptr->division);
 	if(ptr->prev!=NULL)
 		prefixDisplay(ptr->prev);
 	if(ptr->next!=NULL)
@@ -149,6 +188,147 @@ void postfixDisplay(kal *ptr)
 		postfixDisplay(ptr->prev);
 	if(ptr->next!=NULL)
 		postfixDisplay(ptr->next);
-	printf("%d,",ptr->value);
+	printf("\n \n Student Roll Number is a : %d,",ptr->value);
+	printf("\n Student name is a        :");
+	puts(ptr->name);
+	printf("Student class is a        : %c,",ptr->division);
 }
 
+void searching(kal *ptr,int search)
+{
+
+	if(ptr==NULL)
+		printf("\n Tree is a empty , Do not perform a searching !!!!!");
+
+	else
+	{
+		if(ptr->value==search)
+		{
+			printf("\n Element is a found");
+		}
+		else
+		{
+			if(ptr->value>search && ptr->prev!=NULL)
+			{
+				if(ptr->prev!=NULL)
+					searching(ptr->prev,search);
+				else
+					printf("\n Element not found !!!!");
+			}
+			else
+			{
+				if(ptr->next!=NULL)
+					searching(ptr->next,search);
+				else
+					printf("\n Element not found !!!!");
+			}
+		}
+	}
+}
+
+kal *deletion(kal *ptr,int search)
+{
+	kal *temp,*temp2;
+
+	if(ptr==NULL)
+		printf("\n Tree is a empty , Do not perform a Deletion !!!!!");
+
+	else if(ptr->value==search)
+	{
+		printf("\n Node value is a  : %d",ptr->value);
+
+		if(ptr->prev==NULL && ptr->next==NULL)
+		{
+			free(ptr);
+			printf("\n Deletion is succesfully !!! last leaf node");
+			return NULL;
+		}
+		else
+		{
+			if(ptr->next!=NULL && ptr->next->next==NULL)
+			{
+				temp=ptr->next;
+				free(ptr);
+				printf("\n Deletion is succesfully !!! right only one node");
+				return temp;
+			}
+			else if(ptr->prev!=NULL && ptr->prev->prev==NULL)
+			{
+				temp=ptr->prev;
+				free(ptr);
+				printf("\n Deletion is succesfully !!! left only one node");
+				return temp;
+			}
+			else
+			{
+				printf("\n Deletion is succesfully !!! between");
+
+				temp=temp2=ptr->next;
+
+				while(temp->prev!=NULL)
+				{
+					temp=temp->prev;
+				}
+				temp->prev=ptr->prev;
+				free(ptr);
+				return temp2;
+			}
+		}
+	}
+	else
+	{
+		if(ptr->value>search)
+		{
+			if(ptr->prev!=NULL)
+				ptr->prev=deletion(ptr->prev,search);
+			else
+				printf("\n Element not found !!!!");
+		}
+		else
+		{
+			if(ptr->next!=NULL)
+				ptr->next=deletion(ptr->next,search);
+			else
+				printf("\n Element not found !!!!");
+		}
+		return ptr;
+	}
+}
+
+void update(kal *ptr,int search)
+{
+	if(ptr==NULL)
+		printf("\n Tree is a empty , Do not perform a updating !!!!!");
+
+	else
+	{
+		if(ptr->value==search)
+		{
+			printf("\n Enter A update roll number of student :");
+			scanf("%d",&ptr->value);
+			fflush(stdin);
+			printf(" Enter A update Name of student        :");
+			gets(ptr->name);
+			fflush(stdin);
+			printf(" Enter A update division of class      :");
+			scanf("%c",&ptr->division);
+		}
+		else
+		{
+			if(ptr->value>search && ptr->prev!=NULL)
+			{
+				if(ptr->prev!=NULL)
+					searching(ptr->prev,search);
+				else
+					printf("\n Element not found !!!!");
+			}
+			else
+			{
+				if(ptr->next!=NULL)
+					searching(ptr->next,search);
+				else
+					printf("\n Element not found !!!!");
+			}
+		}
+	}
+}
