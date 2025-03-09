@@ -12,6 +12,7 @@ struct tree
 };
 typedef struct tree kal;
 kal *root = NULL;
+int max, min,maximum,minimum;
 
 kal *Inseart(kal *, int, char[], char);
 void infixDisplay(kal *);
@@ -19,14 +20,14 @@ void prefixDisplay(kal *);
 void Display(kal *);
 void postfixDisplay(kal *);
 void searching(kal *, int);
-void update(kal *, kal *, int);
-void updateLast(kal *, kal *, int);
-void possible(int);
 kal *deletion(kal *, int);
-void assignValue(kal *,int, char name[],char);
-kal *findtempprev(kal *);
-int whileprev(kal *);
-int whilenext(kal *);
+void update(kal *, kal *, int);
+void possible(int);
+void assignValue(kal *, int, char name[], char);
+void minvalue(kal *);
+void maxvalue(kal *);
+void maxptr(int, kal *);
+void minptr(int, kal *);
 
 int main()
 {
@@ -46,48 +47,50 @@ int main()
 
 		switch (choice)
 		{
-			case 1:
-				printf("\n Enter A roll number of student :");
-				scanf("%d", &value);
-				//				fflush(stdin);
-				//				printf(" Enter A Name of student        :");
-				//				gets(sname);
-				//				fflush(stdin);
-				//				printf(" Enter A division of class      :");
-				//				scanf("%c",&division);
+		case 1:
+			printf("\n Enter A roll number of student :");
+			scanf("%d", &value);
+			//				fflush(stdin);
+			//				printf(" Enter A Name of student        :");
+			//				gets(sname);
+			//				fflush(stdin);
+			//				printf(" Enter A division of class      :");
+			//				scanf("%c",&division);
 
-				root = Inseart(root, value, sname, division);
-				break;
+			root = Inseart(root, value, sname, division);
+			break;
 
-			case 2:
-				Display(root);
-				break;
+		case 2:
+			Display(root);
+			break;
 
-			case 3:
-				printf("\n Enter a searching element :");
-				scanf("%d", &search);
-				searching(root, search);
-				break;
+		case 3:
+			printf("\n Enter a searching element :");
+			scanf("%d", &search);
+			searching(root, search);
+			break;
 
-			case 4:
-				printf("\n Enter a Delete element :");
-				scanf("%d", &search);
-				root = deletion(root, search);
-				break;
+		case 4:
+			printf("\n Enter a Delete element :");
+			scanf("%d", &search);
+			root = deletion(root, search);
+			break;
 
-			case 5:
-				printf("\n Enter a update element :");
-				scanf("%d", &search);
-				update(root, NULL, search);
-				break;
+		case 5:
+			printf("\n Enter a update element :");
+			scanf("%d", &search);
+			minvalue(root);
+			maxvalue(root);
+			update(root, NULL, search);
+			break;
 
-			case 7:
-				i = 0;
-				break;
+		case 7:
+			i = 0;
+			break;
 
-			default:
-				printf("\n Invalid Choice !!");
-				break;
+		default:
+			printf("\n Invalid Choice !!");
+			break;
 		}
 	}
 	fflush(stdin);
@@ -144,21 +147,21 @@ void Display(kal *ptr)
 
 		switch (choice)
 		{
-			case 1:
-				prefixDisplay(ptr);
-				break;
+		case 1:
+			prefixDisplay(ptr);
+			break;
 
-			case 2:
-				infixDisplay(ptr);
-				break;
+		case 2:
+			infixDisplay(ptr);
+			break;
 
-			case 3:
-				postfixDisplay(ptr);
-				break;
+		case 3:
+			postfixDisplay(ptr);
+			break;
 
-			default:
-				printf("\n Invalid Choice !!!");
-				break;
+		default:
+			printf("\n Invalid Choice !!!");
+			break;
 		}
 	}
 }
@@ -309,9 +312,16 @@ void update(kal *ptr, kal *temp, int search)
 
 	else
 	{
+			maximum=max;
+			minimum=min;
 		if (ptr->value == search)
 		{
+			maxptr(search, root);
+			minptr(search,root);
 			printf("\n ptr roll is a : %d ", ptr->value);
+			printf("\n near biggest value is a %d", maximum);
+			printf("\n near nearest value is a %d", minimum);
+			
 			printf("\n Enter A update roll number of student :");
 			scanf("%d", &value);
 			//			fflush(stdin);
@@ -321,37 +331,20 @@ void update(kal *ptr, kal *temp, int search)
 			//			printf(" Enter A update division of class      :");
 			//			scanf("%c",&div);
 
-			if(ptr->prev==ptr->next)
-			{
-				if(ptr==root)
-				{
-					assignValue(ptr,value,name,div);
-				}
+			if (ptr->prev == ptr->next && ptr == root)
+				assignValue(ptr, value, name, div);
 
-				else if(root==temp)
-				{
-					if(temp->prev==ptr)
-					{
-						if(value<temp->value)
-							assignValue(ptr,value,name,div);
-						else
-							possible(0);
-					}
-					else
-					{
-						if(value>temp->value)
-							assignValue(ptr,value,name,div);
-						else
-							possible(0);
-					}
-				}
-				else
-				{
-				tempprev=findtempprev(temp);
-				
-				printf("last more node value is a : %d",tempprev->value);
-					
-				}
+			else if (search == min)
+			{
+				if (value > max);
+			}
+
+			else if (search == max)
+			{
+			}
+
+			else
+			{
 			}
 		}
 		else
@@ -374,7 +367,6 @@ void update(kal *ptr, kal *temp, int search)
 	}
 }
 
-
 void possible(int n)
 {
 	if (n)
@@ -383,44 +375,75 @@ void possible(int n)
 		printf("Not possible !!!");
 }
 
-int whileprev(kal * temp)
-{
-	kal *run = root;
-	while (run->prev == temp && run->prev != NULL)
-	{
-		run = run->prev;
-	}
-	return run->value;
-}
-
-int whilenext(kal * temp)
-{
-	kal *run = root;
-	while (run->next == temp && run->next != NULL)
-	{
-		run = run->next;
-	}
-	return run->value;
-}
-
 void assignValue(kal *ptr, int value, char name[], char div)
 {
-	ptr->value=value;
-	strcpy(ptr->name,name);
-	ptr->division=div;
+	ptr->value = value;
+	strcpy(ptr->name, name);
+	ptr->division = div;
 	possible(1);
 }
 
-kal *findtempprev(kal *temp)
+void minvalue(kal *ptr)
 {
-	kal *ptr;
-	ptr=root;
-	
-	if(ptr->prev!=temp && ptr->prev!=NULL)
-	ptr=findtempprev(ptr->prev);
-	if(ptr->next!=temp && ptr->next!=NULL)
-	ptr=findtempprev(ptr->next);
-	
-	return ptr;
-	
+	while (ptr->prev != NULL)
+	{
+		ptr = ptr->prev;
+	}
+	min = ptr->value;
+}
+
+void maxvalue(kal *ptr)
+{
+	while (ptr->next != NULL)
+	{
+		ptr = ptr->next;
+	}
+	max = ptr->value;
+
+}
+
+void maxptr(int search, kal *ptr)
+{
+	if (ptr->prev != NULL)
+	{
+		if (ptr->value < max && ptr->value > search)
+		{
+			maximum = ptr->value;
+			max=maximum;
+		}
+		maxptr(search, ptr->prev);
+	}
+
+	if (ptr->next != NULL)
+	{
+		if (ptr->value < max && ptr->value > search)
+		{
+			maximum = ptr->value;
+			max=maximum;
+		}
+
+		maxptr(search, ptr->next);
+	}
+}
+
+void minptr(int search, kal *ptr)
+{
+	if (ptr->prev != NULL)
+	{
+		if (ptr->value > min && ptr->value < search)
+		{
+			minimum = ptr->value;
+		}
+		maxptr(search, ptr->prev);
+	}
+
+	if (ptr->next != NULL)
+	{
+		if (ptr->value > min && ptr->value < search)
+		{
+			minimum = ptr->value;
+		}
+
+		minptr(search, ptr->next);
+	}
 }
