@@ -23,12 +23,14 @@ void update(kal *, kal *, int);
 void updateLast(kal *, kal *, int);
 void possible(int);
 kal *deletion(kal *, int);
-int *whileprev(kal *);
-int *whilenext(kal *);
+void assignValue(kal *,int, char name[],char);
+kal *findtempprev(kal *);
+int whileprev(kal *);
+int whilenext(kal *);
 
 int main()
 {
-	int i = 1, choice, rootCheck = 1;
+	int i = 1, choice;
 	int value, search;
 	char division;
 	char sname[100];
@@ -39,54 +41,53 @@ int main()
 		printf("\n \n linklist operation :");
 
 		printf("\n 01. Inseart \n 02. Display \n 03. Searching \n 04. Deletion \n 05. Update \n 07. Exite");
-
 		printf("\n Enter a choice :");
 		scanf("%d", &choice);
 
 		switch (choice)
 		{
-		case 1:
-			printf("\n Enter A roll number of student :");
-			scanf("%d", &value);
-			//				fflush(stdin);
-			//				printf(" Enter A Name of student        :");
-			//				gets(sname);
-			//				fflush(stdin);
-			//				printf(" Enter A division of class      :");
-			//				scanf("%c",&division);
+			case 1:
+				printf("\n Enter A roll number of student :");
+				scanf("%d", &value);
+				//				fflush(stdin);
+				//				printf(" Enter A Name of student        :");
+				//				gets(sname);
+				//				fflush(stdin);
+				//				printf(" Enter A division of class      :");
+				//				scanf("%c",&division);
 
-			root = Inseart(root, value, sname, division);
-			break;
+				root = Inseart(root, value, sname, division);
+				break;
 
-		case 2:
-			Display(root);
-			break;
+			case 2:
+				Display(root);
+				break;
 
-		case 3:
-			printf("\n Enter a searching element :");
-			scanf("%d", &search);
-			searching(root, search);
-			break;
+			case 3:
+				printf("\n Enter a searching element :");
+				scanf("%d", &search);
+				searching(root, search);
+				break;
 
-		case 4:
-			printf("\n Enter a Delete element :");
-			scanf("%d", &search);
-			root = deletion(root, search);
-			break;
+			case 4:
+				printf("\n Enter a Delete element :");
+				scanf("%d", &search);
+				root = deletion(root, search);
+				break;
 
-		case 5:
-			printf("\n Enter a update element :");
-			scanf("%d", &search);
-			update(root, NULL, search);
-			break;
+			case 5:
+				printf("\n Enter a update element :");
+				scanf("%d", &search);
+				update(root, NULL, search);
+				break;
 
-		case 7:
-			i = 0;
-			break;
+			case 7:
+				i = 0;
+				break;
 
-		default:
-			printf("\n Invalid Choice !!");
-			break;
+			default:
+				printf("\n Invalid Choice !!");
+				break;
 		}
 	}
 	fflush(stdin);
@@ -143,21 +144,21 @@ void Display(kal *ptr)
 
 		switch (choice)
 		{
-		case 1:
-			prefixDisplay(ptr);
-			break;
+			case 1:
+				prefixDisplay(ptr);
+				break;
 
-		case 2:
-			infixDisplay(ptr);
-			break;
+			case 2:
+				infixDisplay(ptr);
+				break;
 
-		case 3:
-			postfixDisplay(ptr);
-			break;
+			case 3:
+				postfixDisplay(ptr);
+				break;
 
-		default:
-			printf("\n Invalid Choice !!!");
-			break;
+			default:
+				printf("\n Invalid Choice !!!");
+				break;
 		}
 	}
 }
@@ -301,9 +302,7 @@ void update(kal *ptr, kal *temp, int search)
 	int value;
 	char name[100];
 	char div;
-	kal *tempPrev, *tempLast;
-	kal *run;
-	tempPrev = tempLast = run = ptr;
+	kal *tempprev;
 
 	if (ptr == NULL)
 		printf("\n Tree is a empty , Do not perform a updating !!!!!");
@@ -322,49 +321,106 @@ void update(kal *ptr, kal *temp, int search)
 			//			printf(" Enter A update division of class      :");
 			//			scanf("%c",&div);
 
-			else
+			if(ptr->prev==ptr->next)
 			{
-				if (ptr->value > search)
+				if(ptr==root)
 				{
-					if (ptr->prev != NULL)
-						update(ptr->prev, ptr, search);
+					assignValue(ptr,value,name,div);
+				}
+
+				else if(root==temp)
+				{
+					if(temp->prev==ptr)
+					{
+						if(value<temp->value)
+							assignValue(ptr,value,name,div);
+						else
+							possible(0);
+					}
 					else
-						printf("\n Element not found !!!!");
+					{
+						if(value>temp->value)
+							assignValue(ptr,value,name,div);
+						else
+							possible(0);
+					}
 				}
 				else
 				{
-					if (ptr->next != NULL)
-						update(ptr->next, ptr, search);
-					else
-						printf("\n Element not found !!!!");
+				tempprev=findtempprev(temp);
+				
+				printf("last more node value is a : %d",tempprev->value);
+					
 				}
 			}
 		}
-	}
-
-	void possible(int n)
-	{
-		if (n)
-			printf("sucessfully update !!!");
 		else
-			printf("Not possible !!!");
+		{
+			if (ptr->value > search)
+			{
+				if (ptr->prev != NULL)
+					update(ptr->prev, ptr, search);
+				else
+					printf("\n Element not found !!!!");
+			}
+			else
+			{
+				if (ptr->next != NULL)
+					update(ptr->next, ptr, search);
+				else
+					printf("\n Element not found !!!!");
+			}
+		}
 	}
+}
 
-	int *whileprev(kal * temp)
+
+void possible(int n)
+{
+	if (n)
+		printf("sucessfully update !!!");
+	else
+		printf("Not possible !!!");
+}
+
+int whileprev(kal * temp)
+{
+	kal *run = root;
+	while (run->prev == temp && run->prev != NULL)
 	{
-		kal *run = root;
-		while (run->prev == temp && run->prev != NULL)
-		{
-			run = run->prev;
-		}
-		return run->value;
+		run = run->prev;
 	}
-	int *whilenext(kal * temp)
+	return run->value;
+}
+
+int whilenext(kal * temp)
+{
+	kal *run = root;
+	while (run->next == temp && run->next != NULL)
 	{
-		kal *run = root;
-		while (run->next == temp && run->next != NULL)
-		{
-			run = run->next;
-		}
-		return run->value;
+		run = run->next;
 	}
+	return run->value;
+}
+
+void assignValue(kal *ptr, int value, char name[], char div)
+{
+	ptr->value=value;
+	strcpy(ptr->name,name);
+	ptr->division=div;
+	possible(1);
+}
+
+kal *findtempprev(kal *temp)
+{
+	kal *ptr;
+	ptr=root;
+	
+	if(ptr->prev!=temp && ptr->prev!=NULL)
+	ptr=findtempprev(ptr->prev);
+	if(ptr->next!=temp && ptr->next!=NULL)
+	ptr=findtempprev(ptr->next);
+	
+	return ptr;
+	
+}
