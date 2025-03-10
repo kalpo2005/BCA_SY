@@ -319,18 +319,14 @@ void update(kal *ptr, kal *temp, int search)
 			maxptr(search, root);
 			tempmax = min;
 			minptr(search, root);
-			printf("\n ptr roll is a : %d ", ptr->value);
-			printf("\n near biggest value is a %d", maximum);
-			printf("\n near minimum value value is a %d", minimum);
-
 			printf("\n Enter A update roll number of student :");
 			scanf("%d", &value);
-			//			fflush(stdin);
-			//			printf(" Enter A update Name of student        :");
-			//			gets(name);
-			//			fflush(stdin);
-			//			printf(" Enter A update division of class      :");
-			//			scanf("%c",&div);
+			fflush(stdin);
+			printf(" Enter A update Name of student        :");
+			gets(name);
+			fflush(stdin);
+			printf(" Enter A update division of class      :");
+			scanf("%c", &div);
 
 			if (ptr->prev == ptr->next && ptr == root)
 				assignValue(ptr, value, name, div);
