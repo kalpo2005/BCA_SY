@@ -337,14 +337,24 @@ void update(kal *ptr, kal *temp, int search)
 
 			else if (search == min)
 			{
+				if (value < maximum)
+					assignValue(ptr, value, name, div);
+				else
+					possible(0);
 			}
-
 			else if (search == max)
 			{
+				if (value > minimum)
+					assignValue(ptr, value, name, div);
+				else
+					possible(0);
 			}
-
 			else
 			{
+				if (value < maximum && value > minimum)
+					assignValue(ptr, value, name, div);
+				else
+					possible(0);
 			}
 		}
 		else
@@ -417,14 +427,14 @@ void maxptr(int search, kal *ptr)
 
 void minptr(int search, kal *ptr)
 {
-		if (ptr->prev != NULL)
-			minptr(search, ptr->prev);
+	if (ptr->prev != NULL)
+		minptr(search, ptr->prev);
 	if (ptr->value < search && tempmax <= ptr->value)
 	{
 		tempmax = ptr->value;
 		if (tempmax > minimum)
 			minimum = tempmax;
-	if (ptr->next != NULL)
-		minptr(search, ptr->next);
+		if (ptr->next != NULL)
+			minptr(search, ptr->next);
 	}
 }
