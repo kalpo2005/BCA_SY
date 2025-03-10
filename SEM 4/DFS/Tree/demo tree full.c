@@ -12,7 +12,7 @@ struct tree
 };
 typedef struct tree kal;
 kal *root = NULL;
-int max, min,maximum,minimum;
+int max, min, maximum, minimum, tempmax;
 
 kal *Inseart(kal *, int, char[], char);
 void infixDisplay(kal *);
@@ -305,23 +305,24 @@ void update(kal *ptr, kal *temp, int search)
 	int value;
 	char name[100];
 	char div;
-	kal *tempprev;
 
 	if (ptr == NULL)
 		printf("\n Tree is a empty , Do not perform a updating !!!!!");
 
 	else
 	{
-			maximum=max;
-			minimum=min;
+		maximum = max;
+		minimum = min;
+		tempmax = search;
 		if (ptr->value == search)
 		{
 			maxptr(search, root);
-			minptr(search,root);
+			tempmax = min;
+			minptr(search, root);
 			printf("\n ptr roll is a : %d ", ptr->value);
 			printf("\n near biggest value is a %d", maximum);
-			printf("\n near nearest value is a %d", minimum);
-			
+			printf("\n near minimum value value is a %d", minimum);
+
 			printf("\n Enter A update roll number of student :");
 			scanf("%d", &value);
 			//			fflush(stdin);
@@ -336,7 +337,6 @@ void update(kal *ptr, kal *temp, int search)
 
 			else if (search == min)
 			{
-				if (value > max);
 			}
 
 			else if (search == max)
@@ -399,51 +399,32 @@ void maxvalue(kal *ptr)
 		ptr = ptr->next;
 	}
 	max = ptr->value;
-
 }
 
 void maxptr(int search, kal *ptr)
 {
 	if (ptr->prev != NULL)
-	{
-		if (ptr->value < max && ptr->value > search)
-		{
-			maximum = ptr->value;
-			max=maximum;
-		}
 		maxptr(search, ptr->prev);
-	}
-
-	if (ptr->next != NULL)
+	if (ptr->value > search && tempmax < ptr->value)
 	{
-		if (ptr->value < max && ptr->value > search)
-		{
-			maximum = ptr->value;
-			max=maximum;
-		}
-
-		maxptr(search, ptr->next);
+		tempmax = ptr->value;
+		if (tempmax < maximum)
+			maximum = tempmax;
 	}
+	if (ptr->next != NULL)
+		maxptr(search, ptr->next);
 }
 
 void minptr(int search, kal *ptr)
 {
-	if (ptr->prev != NULL)
+		if (ptr->prev != NULL)
+			minptr(search, ptr->prev);
+	if (ptr->value < search && tempmax <= ptr->value)
 	{
-		if (ptr->value > min && ptr->value < search)
-		{
-			minimum = ptr->value;
-		}
-		maxptr(search, ptr->prev);
-	}
-
+		tempmax = ptr->value;
+		if (tempmax > minimum)
+			minimum = tempmax;
 	if (ptr->next != NULL)
-	{
-		if (ptr->value > min && ptr->value < search)
-		{
-			minimum = ptr->value;
-		}
-
 		minptr(search, ptr->next);
 	}
 }
