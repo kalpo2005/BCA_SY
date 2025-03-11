@@ -21,11 +21,10 @@ void Display(kal *);
 void postfixDisplay(kal *);
 void searching(kal *, int);
 kal *deletion(kal *, int);
-void update(kal *, kal *, int);
+void update(kal *, int);
 void possible(int);
 void assignValue(kal *, int, char name[], char);
 void minvalue(kal *);
-void maxvalue(kal *);
 void maxptr(int, kal *);
 void minptr(int, kal *);
 
@@ -50,12 +49,12 @@ int main()
 		case 1:
 			printf("\n Enter A roll number of student :");
 			scanf("%d", &value);
-			//				fflush(stdin);
-			//				printf(" Enter A Name of student        :");
-			//				gets(sname);
-			//				fflush(stdin);
-			//				printf(" Enter A division of class      :");
-			//				scanf("%c",&division);
+			fflush(stdin);
+			printf(" Enter A Name of student        :");
+			gets(sname);
+			fflush(stdin);
+			printf(" Enter A division of class      :");
+			scanf("%c", &division);
 
 			root = Inseart(root, value, sname, division);
 			break;
@@ -80,8 +79,7 @@ int main()
 			printf("\n Enter a update element :");
 			scanf("%d", &search);
 			minvalue(root);
-			maxvalue(root);
-			update(root, NULL, search);
+			update(root,search);
 			break;
 
 		case 7:
@@ -242,12 +240,9 @@ kal *deletion(kal *ptr, int search)
 
 	else if (ptr->value == search)
 	{
-		printf("\n Node value is a  : %d", ptr->value);
-
 		if (ptr->prev == NULL && ptr->next == NULL)
 		{
 			free(ptr);
-			printf("\n Deletion is succesfully !!! last leaf node");
 			return NULL;
 		}
 		else
@@ -256,22 +251,17 @@ kal *deletion(kal *ptr, int search)
 			{
 				temp = ptr->prev;
 				free(ptr);
-				printf("\n Deletion is succesfully !!! right only one node");
 				return temp;
 			}
 			else if (ptr->prev == NULL)
 			{
 				temp = ptr->next;
 				free(ptr);
-				printf("\n Deletion is succesfully !!! left only one node");
 				return temp;
 			}
 			else
 			{
-				printf("\n Deletion is succesfully !!! between");
-
 				temp = temp2 = ptr->next;
-
 				while (temp->prev != NULL)
 					temp = temp->prev;
 				temp->prev = ptr->prev;
@@ -300,7 +290,7 @@ kal *deletion(kal *ptr, int search)
 	}
 }
 
-void update(kal *ptr, kal *temp, int search)
+void update(kal *ptr, int search)
 {
 	int value;
 	char name[100];
@@ -314,7 +304,7 @@ void update(kal *ptr, kal *temp, int search)
 		maximum = max;
 		minimum = min;
 		tempmax = search;
-		if (ptr->value == search)
+		if (ptr->value == search) // if node found so we can update it a
 		{
 			maxptr(search, root);
 			tempmax = min;
@@ -328,24 +318,24 @@ void update(kal *ptr, kal *temp, int search)
 			printf(" Enter A update division of class      :");
 			scanf("%c", &div);
 
-			if (ptr->prev == ptr->next && ptr == root)
+			if (ptr->prev == ptr->next && ptr == root) // if root node
 				assignValue(ptr, value, name, div);
 
-			else if (search == min)
+			else if (search == min) // if last node but prev last node
 			{
-				if (value < maximum)
+				if (value <= maximum)
 					assignValue(ptr, value, name, div);
 				else
 					possible(0);
 			}
-			else if (search == max)
+			else if (search == max) // if last but next last node
 			{
-				if (value > minimum)
+				if (value >= minimum)
 					assignValue(ptr, value, name, div);
 				else
 					possible(0);
 			}
-			else
+			else // between last node update anywhere
 			{
 				if (value < maximum && value > minimum)
 					assignValue(ptr, value, name, div);
@@ -353,19 +343,19 @@ void update(kal *ptr, kal *temp, int search)
 					possible(0);
 			}
 		}
-		else
+		else // for the searching and traveliing at the tree node
 		{
 			if (ptr->value > search)
 			{
 				if (ptr->prev != NULL)
-					update(ptr->prev, ptr, search);
+					update(ptr->prev, search);
 				else
 					printf("\n Element not found !!!!");
 			}
 			else
 			{
 				if (ptr->next != NULL)
-					update(ptr->next, ptr, search);
+					update(ptr->next, search);
 				else
 					printf("\n Element not found !!!!");
 			}
@@ -391,20 +381,18 @@ void assignValue(kal *ptr, int value, char name[], char div)
 
 void minvalue(kal *ptr)
 {
+	kal *temp = ptr;
 	while (ptr->prev != NULL)
 	{
 		ptr = ptr->prev;
 	}
 	min = ptr->value;
-}
 
-void maxvalue(kal *ptr)
-{
-	while (ptr->next != NULL)
+	while (temp->next != NULL)
 	{
-		ptr = ptr->next;
+		temp = temp->next;
 	}
-	max = ptr->value;
+	max = temp->value;
 }
 
 void maxptr(int search, kal *ptr)
