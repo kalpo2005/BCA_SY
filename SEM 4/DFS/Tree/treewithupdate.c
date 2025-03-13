@@ -79,7 +79,7 @@ int main()
 			printf("\n Enter a update element :");
 			scanf("%d", &search);
 			minvalue(root);
-			update(root,search);
+			update(root, search);
 			break;
 
 		case 7:
@@ -309,6 +309,9 @@ void update(kal *ptr, int search)
 			maxptr(search, root);
 			tempmax = min;
 			minptr(search, root);
+			printf("\n A nearest biggest value is a : %d", maximum);
+			printf("\n A nearest smallest value is a : %d", minimum);
+
 			printf("\n Enter A update roll number of student :");
 			scanf("%d", &value);
 			fflush(stdin);
