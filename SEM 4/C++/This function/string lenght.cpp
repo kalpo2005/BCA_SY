@@ -16,7 +16,10 @@ class Kalpesh
 		}
 		void input(char name[])
 		{
-			strcpy(this->name,name);
+			for(int i=0; name[i]!='\0'; i++)
+			{
+				this->name[i]=name[i];
+			}
 		}
 
 		void findthelenght()
@@ -36,6 +39,7 @@ int main()
 	char name[100];
 	cout<<"Enter a name for the lenght :";
 	gets(name);
+	cout<<"------- lenght :"<<strrev(name);
 
 	Kalpesh K;
 	K.input(name);
