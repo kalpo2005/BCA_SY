@@ -1,3 +1,0 @@
-enter value :200
-enter value :300
-sum is a :500
