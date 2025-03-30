@@ -1,9 +1,0 @@
-#include<stdio.h>
-#include<conio.h>
-void main()
-{
-	int Arr[100],n                          ;
-	clrscr();
-
- getch();
-}
