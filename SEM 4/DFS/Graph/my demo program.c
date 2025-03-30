@@ -6,11 +6,16 @@ int arr[MAX][MAX];
 int vertax = 0;
 
 void addVertax(int);
+void addEdge(int, int);
+void removeVertax(int);
+void removeEdge(int, int);
+void displayMatrix();
 
 int main()
 {
 
 	int i = 1, choice;
+	int start, end;
 	int n;
 
 	while (i)
@@ -33,6 +38,15 @@ int main()
 			addVertax(n);
 			break;
 
+		case 2:
+			printf("\n Enter a start and end point  :");
+			scanf("%d %d", &start, &end);
+			break;
+
+		case 5:
+			displayMatrix();
+			break;
+			
 		case 10:
 			printf("\n Program Terminated :");
 			i = 0;
@@ -59,5 +73,19 @@ void addVertax(int Number)
 			vertax++;
 			printf("\n New add vartext is a %d :", vertax - 1);
 		}
+	}
+}
+
+void displayMatrix()
+{
+	int i, j;
+
+	for (i = 0; i < vertax; i++)
+	{
+		for (j = 0; j < vertax; j++)
+		{
+			printf(" %d ", arr[i][j]);
+		}
+		printf("\n");
 	}
 }
