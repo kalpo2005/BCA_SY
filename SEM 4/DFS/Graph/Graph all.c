@@ -16,7 +16,7 @@ void dfs(int startVertex);
 void bfs(int startVertex);
 int main()
 {
-	int choice, src, dest, vertex, count, startVertex,i;
+	int choice, src, dest, vertex, count, startVertex, i;
 	while (1)
 	{
 		printf("\nGraph Operations Menu:\n");
@@ -32,50 +32,50 @@ int main()
 		scanf("%d", &choice);
 		switch (choice)
 		{
-			case 1:
-				printf("Enter the number of vertices to add: ");
-				scanf("%d", &count);
-				addVertices(count);
-				break;
-			case 2:
-				printf("Enter source and destination vertices: ");
-				scanf("%d %d", &src, &dest);
-				addEdge(src, dest);
-				break;
-			case 3:
-				printf("Enter  source  and  destination  vertices  to  remove  the  edge:");
-				scanf("%d %d", &src, &dest);
-				removeEdge(src, dest);
-				break;
-			case 4:
-				printf("Enter the vertex to remove: ");
-				scanf("%d", &vertex);
-				removeVertex(vertex);
-				break;
-			case 5:
-				displayGraph();
-				break;
-			case 6:
-				printf("Enter the starting vertex for DFS:");
-				scanf("%d", &startVertex);
-				for (i = 0; i < numVertices; i++)
-				{
-					visited[i] = 0;
-				}
-				dfs(startVertex);
-				printf("\n");
-				break;
-			case 7:
-				printf("Enter the starting vertex for BFS: ");
-				scanf("%d", &startVertex);
-				bfs(startVertex);
-				printf("\n");
-				break;
-			case 8:
-				printf("Exiting program.\n");
-				exit(0);
-			default:
-				printf("Invalid choice! Please try again.\n");
+		case 1:
+			printf("Enter the number of vertices to add: ");
+			scanf("%d", &count);
+			addVertices(count);
+			break;
+		case 2:
+			printf("Enter source and destination vertices: ");
+			scanf("%d %d", &src, &dest);
+			addEdge(src, dest);
+			break;
+		case 3:
+			printf("Enter  source  and  destination  vertices  to  remove  the  edge:");
+			scanf("%d %d", &src, &dest);
+			removeEdge(src, dest);
+			break;
+		case 4:
+			printf("Enter the vertex to remove: ");
+			scanf("%d", &vertex);
+			removeVertex(vertex);
+			break;
+		case 5:
+			displayGraph();
+			break;
+		case 6:
+			printf("Enter the starting vertex for DFS:");
+			scanf("%d", &startVertex);
+			for (i = 0; i < numVertices; i++)
+			{
+				visited[i] = 0;
+			}
+			dfs(startVertex);
+			printf("\n");
+			break;
+		case 7:
+			printf("Enter the starting vertex for BFS: ");
+			scanf("%d", &startVertex);
+			bfs(startVertex);
+			printf("\n");
+			break;
+		case 8:
+			printf("Exiting program.\n");
+			exit(0);
+		default:
+			printf("Invalid choice! Please try again.\n");
 		}
 	}
 	return 0;
@@ -92,7 +92,7 @@ void addVertices(int count)
 	for (i = 0; i < count; i++)
 	{
 		numVertices++;
-		printf("Vertex %d added successfully.\n", numVertices-1);
+		printf("Vertex %d added successfully.\n", numVertices - 1);
 	}
 }
 // Add an edge to the graph
@@ -122,7 +122,7 @@ void removeEdge(int src, int dest)
 // Remove a vertex from the graph
 void removeVertex(int vertex)
 {
-	int i,j;
+	int i, j;
 	if (vertex >= numVertices || vertex < 0)
 	{
 		printf("Invalid vertex.\n");
@@ -130,17 +130,16 @@ void removeVertex(int vertex)
 	}
 	for (i = vertex; i < numVertices - 1; i++)
 	{
-		adjMatrix[i][j] = adjMatrix[i + 1][j];
-
 		for (j = 0; j < numVertices; j++)
 		{
+			adjMatrix[i][j] = adjMatrix[i + 1][j];
 			adjMatrix[j][i] = adjMatrix[j][i + 1];
 		}
 	}
 	for (i = 0; i <= numVertices; i++)
 	{
-		adjMatrix[numVertices-1][i]=0;
-		adjMatrix[i][numVertices-1]=0;
+		adjMatrix[numVertices - 1][i] = 0;
+		adjMatrix[i][numVertices - 1] = 0;
 	}
 	numVertices--;
 	printf("Vertex %d removed successfully.\n", vertex);
@@ -149,7 +148,7 @@ void removeVertex(int vertex)
 // Display the adjacency matrix of the graph
 void displayGraph()
 {
-	int i,j;
+	int i, j;
 	if (numVertices == 0)
 	{
 		printf("Graph is empty.\n");
@@ -182,7 +181,7 @@ void dfs(int startVertex)
 // Breadth First Search (BFS)
 void bfs(int startVertex)
 {
-	int queue[MAX], front = 0, rear = 0,i;
+	int queue[MAX], front = 0, rear = 0, i;
 	for (i = 0; i < numVertices; i++)
 	{
 		visited[i] = 0;
@@ -203,4 +202,3 @@ void bfs(int startVertex)
 		}
 	}
 }
-
