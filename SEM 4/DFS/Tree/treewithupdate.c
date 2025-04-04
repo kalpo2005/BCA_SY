@@ -54,7 +54,7 @@ int main()
 			gets(sname);
 			fflush(stdin);
 			printf(" Enter A division of class      :");
-			scanf("%c", &division);
+//			scanf("%c", &division);
 
 			root = Inseart(root, value, sname, division);
 			break;
@@ -421,7 +421,7 @@ void minptr(int search, kal *ptr)
 		tempmax = ptr->value;
 		if (tempmax > minimum)
 			minimum = tempmax;
+	}
 		if (ptr->next != NULL)
 			minptr(search, ptr->next);
-	}
 }

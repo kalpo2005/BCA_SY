@@ -213,7 +213,7 @@ void searching(kal *ptr,int search)
 		}
 		else
 		{
-			if(ptr->value>search && ptr->prev!=NULL)
+			if(ptr->value>search)
 			{
 				if(ptr->prev!=NULL)
 					searching(ptr->prev,search);
