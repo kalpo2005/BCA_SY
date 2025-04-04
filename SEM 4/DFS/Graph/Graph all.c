@@ -133,6 +133,13 @@ void removeVertex(int vertex)
 		for (j = 0; j < numVertices; j++)
 		{
 			adjMatrix[i][j] = adjMatrix[i + 1][j];
+		}
+	}
+
+	for (i = vertex; i < numVertices - 1; i++)
+	{
+		for (j = 0; j < numVertices; j++)
+		{
 			adjMatrix[j][i] = adjMatrix[j][i + 1];
 		}
 	}
