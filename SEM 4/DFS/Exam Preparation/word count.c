@@ -42,7 +42,7 @@ int main() {
 
         if (strcmp(line, "END\n") == 0) {
             break;
-        }
+        }   
 
         fputs(line, file);
     }
