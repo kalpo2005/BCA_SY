@@ -13,6 +13,7 @@ int countWordOccurrences(char *line, const char *word) {
     token = strtok(temp, " ,.\n");
 
     while (token != NULL) {
+    	printf("\n%s",token);
         if (strcmp(token, word) == 0) {
             count++;
         }
